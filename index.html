@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Yahia</title>
     <style>
+     /* حركة ظهور الصور تدريجياً */
+.photo {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* حركة عند وضع الفأرة على الصورة (تكبير بسيط) */
+.photo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+}
+
+/* حركة للنص */
+h1 {
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
         body { 
             margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif;
             background-color: #fdf6f4; text-align: center; color: #7d6b6b; min-height: 100vh;
@@ -32,9 +52,9 @@
     <div class="container">
         <h1>Happy 22nd Birthday, Yahia</h1>
         
-        <img src=https://ibb.co/KpV1FNpH alt="Yahia" class="photo">
-        <img src=https://ibb.co/fzbXkYPv alt="Yahia" class="photo">
-        <img src=https://ibb.co/ynkVpYh2 alt="Yahia" class="photo">
+        <img src=[url=https://ibb.co/ynkVpYh2][img]https://i.ibb.co/ynkVpYh2/photo-2026-03-14-12-49-57-yahia4.jpg[/img][/url] alt="Yahia" class="photo">
+        <img src=[url=https://ibb.co/fzbXkYPv][img]https://i.ibb.co/fzbXkYPv/photo-2026-03-14-12-50-01-yahia2.jpg[/img][/url] alt="Yahia" class="photo">
+        <img src=[url=https://ibb.co/KpV1FNpH][img]https://i.ibb.co/KpV1FNpH/photo-2026-03-14-12-50-08-yahia-1.jpg[/img][/url]t="Yahia" class="photo">
         
         <p>26th of March is the best day of the year!</p>
         
