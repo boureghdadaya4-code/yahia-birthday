@@ -2,70 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Surprise for Yahia</title>
+    <title>For Yahia 🎂</title>
     <style>
-        body { text-align: center; font-family: 'Arial', sans-serif; background-color: #e0f7fa; padding: 20px; color: #004d40; }
-        #main-content { display: none; }
-        .cake { font-size: 150px; cursor: pointer; transition: 0.3s; margin: 20px; }
-        .gallery { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; display: none; }
-        .gallery img { width: 250px; height: 250px; border-radius: 20px; border: 5px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .message-box { font-size: 24px; font-weight: bold; margin: 30px; display: none; padding: 20px; background: white; border-radius: 15px; }
-        button { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #006064; color: white; border: none; border-radius: 10px; margin-top: 20px; }
+        body { 
+            background-color: #fdf5e6; 
+            display: flex; flex-direction: column; align-items: center; 
+            font-family: 'Comic Sans MS', cursive; padding: 20px;
+        }
+        .photo-frame { 
+            background: white; padding: 10px; box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            transform: rotate(-3deg); margin: 20px; transition: 0.3s;
+        }
+        .photo-frame:nth-child(2) { transform: rotate(3deg); }
+        .photo-frame img { width: 250px; display: block; }
+
+        .cake { font-size: 100px; cursor: pointer; margin: 30px; transition: 0.3s; }
+        .cake:hover { transform: scale(1.1); }
+        
+        #hidden-content { display: none; text-align: center; }
+        .msg { font-size: 24px; color: #8b4513; margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="start-screen">
-        <h1>Hi Yahia! 🎂</h1>
-        <p>I have a special surprise for you. Do you want to open it?</p>
-        <button onclick="openSite()">Open it! ✨</button>
-        <button onclick="sayNo()">No</button>
-    </div>
+    <h1>Happy Birthday Yahia! 🎂</h1>
+    <p>Look at these memories... click the candle!</p>
 
-    <div id="main-content">
-        <h1>Happy Birthday, Yahia! 🕯️</h1>
-        <p>Make a wish before blowing out the candle!</p>
-        <div class="cake" id="cake" onclick="blowCandle()">🎂🕯️</div>
-        
-        <div id="click-for-msg" style="display:none;">
-            <button onclick="showSurprise()">Click for Message & Photos ✨</button>
-        </div>
+    <div class="photo-frame"><img src="https://i.ibb.co/HDPXCxNZ/photo-2026-03-14-12-49-57-yahia4.jpg"></div>
+    <div class="photo-frame"><img src="https://i.ibb.co/dwSfP0zg/photo-2026-03-14-12-50-01-yahia2.jpg"></div>
 
-        <div class="message-box" id="message">
-            "Happy Birthday Yahia! You are truly amazing. May this year bring you all the success and happiness you deserve!"
-        </div>
+    <div class="cake" onclick="reveal()">🎂🕯️</div>
 
-        <div class="gallery" id="gallery">
-            <img src="https://i.ibb.co/HDPXCxNZ/photo-2026-03-14-12-49-57-yahia4.jpg">
-            <img src="https://i.ibb.co/dwSfP0zg/photo-2026-03-14-12-50-01-yahia2.jpg">
-            <img src="https://i.ibb.co/TxPCmKx5/photo-2026-03-14-12-50-08-yahia-1.jpg">
-        </div>
+    <audio id="birthdaySong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+    <div id="hidden-content">
+        <p class="msg">"Happy Birthday Yahia! You make every day special."</p>
     </div>
 
     <script>
-        function openSite() {
-            document.getElementById('start-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        function sayNo() {
-            let choice = confirm("Awh... 🥺 Please, you will like it! It's made just for you. Shall we try again?");
-            if (choice) {
-                // سيعيد المحاولة
-            } else {
-                alert("Please, just one try! 🎈");
-            }
-        }
-
-        function blowCandle() {
-            document.getElementById('cake').innerHTML = "🍰";
-            document.getElementById('click-for-msg').style.display = 'block';
-        }
-
-        function showSurprise() {
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('gallery').style.display = 'flex';
-            document.getElementById('click-for-msg').style.display = 'none';
+        function reveal() {
+            // تشغيل الموسيقى
+            let song = document.getElementById('birthdaySong');
+            song.play();
+            
+            document.getElementById('hidden-content').style.display = 'block';
+            document.querySelector('.cake').innerHTML = '🍰';
         }
     </script>
 </body>
