@@ -3,55 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Yahia</title>
+    <title>For Yahia</title>
     <style>
-        body {
-            margin: 0; background-color: #e0f7fa; 
-            display: flex; flex-direction: column; align-items: center; 
-            font-family: 'Georgia', serif; padding: 20px;
-        }
-
-        /* تنسيق الصور لتكون مائلة وأنيقة مثل الفيديو */
-        .photo-container {
-            background: white; padding: 10px; border-radius: 2px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin: 20px 0; width: 90%; max-width: 300px;
-            transform: rotate(-3deg); /* مائلة قليلاً */
-        }
-        .photo-container img { width: 100%; display: block; }
+        body { margin: 0; background-color: #e0f7fa; display: flex; flex-direction: column; align-items: center; font-family: sans-serif; padding-bottom: 50px; }
         
-        /* الرسالة الطويلة */
-        .letter {
-            background: #ffffff; padding: 25px; border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            width: 90%; max-width: 450px; line-height: 1.8;
-            color: #004d40; white-space: pre-line; margin-top: 20px;
-        }
+        /* حاوية الفيديو */
+        .video-container { width: 100%; max-width: 325px; margin-top: 20px; }
 
-        .btn-play {
-            background: #006064; color: white; border: none;
-            padding: 15px 30px; border-radius: 25px; cursor: pointer;
-            font-size: 18px; margin-bottom: 20px;
-        }
+        /* حاوية الصور */
+        .photo { width: 90%; max-width: 350px; background: white; padding: 10px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .photo img { width: 100%; display: block; }
 
-        .cake { font-size: 80px; cursor: pointer; margin: 40px 0; }
+        /* الرسالة */
+        .message-box { width: 85%; max-width: 450px; background: white; padding: 20px; margin-top: 20px; border-radius: 10px; line-height: 1.6; color: #004d40; white-space: pre-line; }
+        
+        .cake { font-size: 80px; cursor: pointer; margin-top: 30px; }
     </style>
 </head>
 <body>
 
-    <h1>For Yahia ✨</h1>
-    
-    <button class="btn-play" onclick="playMusic()">Click to Hear Surprise 🎶</button>
+    <div class="video-container">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@cindy5904/video/7580173484911791391" data-video-id="7580173484911791391">
+            <section></section>
+        </blockquote>
+        <script async src="https://www.tiktok.com/embed.js"></script>
+    </div>
 
-    <div class="photo-container">
+    <div class="photo">
         <img src="https://i.ibb.co/HDPXCxNZ/photo-2026-03-14-12-49-57-yahia4.jpg">
     </div>
-
-    <div class="photo-container" style="transform: rotate(3deg);">
+    <div class="photo">
         <img src="https://i.ibb.co/dwSfP0zg/photo-2026-03-14-12-50-01-yahia2.jpg">
     </div>
+    <div class="photo">
+        <img src="https://i.ibb.co/TxPCmKx5/photo-2026-03-14-12-50-08-yahia-1.jpg">
+    </div>
 
-    <div class="letter">
+    <div class="message-box">
 Happy Birthday Yahia 🎉
 On your special day, I just want to wish you a very happy birthday and a beautiful year ahead. I truly hope this new year of your life brings you happiness, success, good health, and everything you dream about.
 
@@ -64,16 +52,5 @@ Enjoy your day and never forget that you are loved and appreciated. Happy Birthd
 
     <div class="cake" onclick="this.innerHTML='🍰'">🕯️</div>
 
-    <audio id="piano" loop>
-        <source src="https://www.mboxdrive.com/happy-birthday-piano.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        function playMusic() {
-            var audio = document.getElementById('piano');
-            audio.play();
-            alert("Happy Birthday Yahia! ❤️");
-        }
-    </script>
 </body>
 </html>
