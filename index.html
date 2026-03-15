@@ -6,33 +6,39 @@
     <title>For Yahia</title>
     <style>
         body {
-            margin: 0; background-color: #e0f2f1; /* الأزرق الفاتح الذي اخترناه */
+            margin: 0; background-color: #e0f7fa; 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden;
+            min-height: 100vh; font-family: 'Georgia', serif; color: #006064; overflow-x: hidden;
         }
 
-        /* شاشة البداية */
-        #entry-screen { text-align: center; z-index: 10; }
-        .open-btn { 
-            padding: 15px 30px; font-size: 18px; cursor: pointer; 
-            background: #006064; color: white; border: none; border-radius: 25px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s;
+        /* شاشة الدخول */
+        #entry-screen { text-align: center; padding: 20px; }
+        .btn { 
+            padding: 12px 25px; font-size: 16px; cursor: pointer; 
+            background: #006064; color: white; border: none; border-radius: 20px;
+            margin-top: 15px; transition: 0.3s;
         }
 
         /* حاوية العرض */
-        #main-display { display: none; text-align: center; width: 90%; max-width: 400px; }
+        #main-display { display: none; text-align: center; width: 100%; max-width: 380px; padding: 20px; }
         
-        .photo-frame {
-            background: white; padding: 10px; border-radius: 5px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-in-out;
+        .card {
+            background: white; padding: 15px; border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 1.5s;
         }
-        .photo-frame img { width: 100%; border-radius: 3px; }
 
-        .message { font-size: 20px; color: #004d40; line-height: 1.5; margin: 20px; min-height: 60px; }
+        .card img { width: 100%; height: auto; max-height: 450px; object-fit: cover; border-radius: 5px; }
 
-        #cake-section { display: none; animation: fadeIn 2s; }
-        .cake { font-size: 80px; cursor: pointer; }
+        /* تنسيق الرسالة الطويلة */
+        .message-box { 
+            font-size: 16px; margin: 20px 0; font-style: italic; 
+            line-height: 1.6; text-align: left; background: rgba(255,255,255,0.6);
+            padding: 15px; border-radius: 10px; border-left: 4px solid #006064;
+        }
+
+        #cake-section { display: none; text-align: center; animation: fadeIn 2s; }
+        .cake { font-size: 100px; cursor: pointer; margin: 20px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -41,24 +47,30 @@
 
     <div id="entry-screen">
         <h1>Hi Yahia! ✨</h1>
-        <p>Do you want to open your surprise?</p>
-        <button class="open-btn" onclick="startApp()">Open it! ✨</button>
-        <button class="open-btn" style="background:#ccc;" onclick="sayNo()">No</button>
+        <p>I have a special message for you...</p>
+        <button class="btn" onclick="start()">Open Surprise</button>
     </div>
 
     <div id="main-display">
-        <div id="content-area">
-            <div class="photo-frame">
+        <div id="content">
+            <div class="card">
                 <img id="current-img" src="https://i.ibb.co/HDPXCxNZ/photo-2026-03-14-12-49-57-yahia4.jpg">
             </div>
-            <p class="message" id="current-msg">Today is a special day because it's your birthday...</p>
-            <button id="next-btn" class="open-btn" onclick="nextStep()">Next →</button>
+            <p id="step-hint" style="font-size: 14px; color: #777; margin-top: 10px;">Click Next to see more...</p>
+            <button class="btn" id="next-btn" onclick="next()">Next →</button>
         </div>
 
         <div id="cake-section">
-            <p>Make a wish, Yahia...</p>
+            <div class="message-box">
+                <strong>Happy Birthday Yahia 🎉</strong><br><br>
+                On your special day, I just want to wish you a very happy birthday and a beautiful year ahead. I truly hope this new year of your life brings you happiness, success, good health, and everything you dream about.<br><br>
+                I also want you to know that you are a very important person to me. I really appreciate having you in my life. No matter what happens, I will always support you and stand by your side. If you ever need anything, you will always find me with you.<br><br>
+                I wish you only the best in life, and I hope all your wishes come true. May your days be full of joy, peace, and beautiful moments.<br><br>
+                Enjoy your day and never forget that you are loved and appreciated. Happy Birthday again! 🎂✨
+            </div>
+            <p>Now, make a wish & blow the candle...</p>
             <div class="cake" onclick="blow()">🕯️</div>
-            <p id="final-wish" style="display:none; font-weight:bold; margin-top:20px;">Happy Birthday! ✨🎂</p>
+            <h2 id="final-wish" style="display:none; color: #d63384;">Your wish will come true! ✨❤️</h2>
         </div>
     </div>
 
@@ -72,29 +84,19 @@
             "https://i.ibb.co/dwSfP0zg/photo-2026-03-14-12-50-01-yahia2.jpg",
             "https://i.ibb.co/TxPCmKx5/photo-2026-03-14-12-50-08-yahia-1.jpg"
         ];
-        const messages = [
-            "You are an amazing person, and you deserve the best year ever.",
-            "I hope all your dreams and wishes come true!"
-        ];
 
-        function sayNo() {
-            let again = confirm("Awh... 🥺 Please, you will like it! Try again?");
-            if(again) startApp();
-        }
-
-        function startApp() {
+        function start() {
             document.getElementById('music').play();
             document.getElementById('entry-screen').style.display = 'none';
             document.getElementById('main-display').style.display = 'block';
         }
 
-        function nextStep() {
+        function next() {
             if (step < images.length) {
                 document.getElementById('current-img').src = images[step];
-                document.getElementById('current-msg').innerText = messages[step];
                 step++;
             } else {
-                document.getElementById('content-area').style.display = 'none';
+                document.getElementById('content').style.display = 'none';
                 document.getElementById('cake-section').style.display = 'block';
             }
         }
