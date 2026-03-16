@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Yahia</title>
+    <title>For Yahia</title>
     <style>
         body {
             margin: 0; background-color: #e0f7fa; 
@@ -11,43 +11,52 @@
             height: 100vh; font-family: 'Arial', sans-serif; overflow: hidden;
         }
 
-        #intro-box { text-align: center; }
-        .btn-start { padding: 15px 30px; font-size: 18px; border-radius: 30px; border: none; background: #006064; color: white; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-
-        #slideshow { display: none; text-align: center; width: 100%; max-width: 400px; }
-        
-        .image-container { 
-            background: white; padding: 10px; border-radius: 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px;
+        /* زر البداية الكبير */
+        #start-btn {
+            padding: 20px 40px; font-size: 22px; border-radius: 50px; border: none;
+            background: #006064; color: white; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .image-container img { width: 100%; display: block; border-radius: 2px; }
 
-        .text-msg { font-size: 18px; color: #333; line-height: 1.4; margin: 0 20px; font-style: italic; }
+        #slideshow { display: none; text-align: center; width: 90%; max-width: 400px; }
 
-        #final-section { display: none; padding: 20px; text-align: left; animation: fadeIn 2s; height: 85vh; overflow-y: auto; width: 90%; max-width: 500px; }
-        .long-message { font-size: 16px; line-height: 1.8; color: #004d40; white-space: pre-line; background: rgba(255,255,255,0.4); padding: 15px; border-radius: 10px; }
-        .cake { font-size: 80px; text-align: center; cursor: pointer; display: block; margin: 20px 0; }
+        .image-card {
+            background: white; padding: 12px; border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 20px;
+            animation: fadeIn 0.8s;
+        }
+        .image-card img { width: 100%; display: block; border-radius: 2px; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .caption { font-size: 19px; color: #333; font-style: italic; margin-bottom: 20px; }
+
+        #final-message { 
+            display: none; padding: 20px; text-align: left; 
+            height: 80vh; overflow-y: auto; width: 90%; max-width: 500px;
+            animation: fadeIn 1.5s;
+        }
+        .letter-content { 
+            font-size: 16px; line-height: 1.8; color: #004d40; 
+            white-space: pre-line; background: white; padding: 20px; border-radius: 10px;
+        }
+
+        .cake-icon { font-size: 80px; text-align: center; cursor: pointer; display: block; margin: 20px 0; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div id="intro-box">
-        <h1>For Yahia ✨</h1>
-        <button class="btn-start" onclick="startSurprise()">Open Surprise 🎁</button>
-    </div>
+    <button id="start-btn" onclick="startSurprise()">Open Your Surprise ✨</button>
 
     <div id="slideshow">
-        <div class="image-container">
-            <img id="display-img" src="https://i.ibb.co/HDPXCxNZ/photo-2026-03-14-12-49-57-yahia4.jpg">
+        <div class="image-card">
+            <img id="main-img" src="https://i.ibb.co/HDPXCxNZ/photo-2026-03-14-12-49-57-yahia4.jpg">
         </div>
-        <p id="display-text" class="text-msg">Happy Birthday Yahia! 🎉</p>
-        <button onclick="nextSlide()" style="margin-top:20px; border:none; background:none; color:#006064; cursor:pointer; font-weight:bold; font-size: 18px;">Next →</button>
+        <p id="main-text" class="caption">Happy Birthday Yahia! 🎉</p>
+        <button onclick="nextStep()" style="background: #006064; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer;">Next →</button>
     </div>
 
-    <div id="final-section">
-        <div class="long-message">
+    <div id="final-message">
+        <div class="letter-content">
 Happy Birthday Yahia 🎉
 
 On your special day, I just want to wish you a very happy birthday and a beautiful year ahead. I truly hope this new year of your life brings you happiness, success, good health, and everything you dream about.
@@ -58,43 +67,42 @@ I wish you only the best in life, and I hope all your wishes come true. May your
 
 Enjoy your day and never forget that you are loved and appreciated. Happy Birthday again! 🎂✨
         </div>
-        
-        <div class="cake" id="cake-icon" onclick="blowOut()">🕯️</div>
-        <p id="wish-final" style="display:none; text-align:center; font-weight:bold; color: #006064; font-size: 20px;">✨ Your wish will come true! ✨</p>
+        <div class="cake-icon" id="candle" onclick="blow()">🕯️</div>
+        <p id="finish-txt" style="display:none; text-align:center; font-weight:bold; color:#006064; font-size: 20px;">✨ Your wish will come true! ✨</p>
     </div>
 
-    <audio id="bg-music" loop>
-        <source src="https://www.mboxdrive.com/happy-birthday-piano.mp3" type="audio/mpeg">
+    <audio id="piano-music" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_feb6359049.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        let current = 0;
-        const slides = [
-            { img: "https://i.ibb.co/dwSfP0zg/photo-2026-03-14-12-50-01-yahia2.jpg", text: "You are an amazing person..." },
-            { img: "https://i.ibb.co/TxPCmKx5/photo-2026-03-14-12-50-08-yahia-1.jpg", text: "I'm so glad to have you in my life." }
+        let currentIdx = 0;
+        const data = [
+            { img: "https://i.ibb.co/dwSfP0zg/photo-2026-03-14-12-50-01-yahia2.jpg", txt: "You are an amazing person..." },
+            { img: "https://i.ibb.co/TxPCmKx5/photo-2026-03-14-12-50-08-yahia-1.jpg", txt: "I'm so glad to have you in my life." }
         ];
 
         function startSurprise() {
-            var audio = document.getElementById('bg-music');
-            audio.play();
-            document.getElementById('intro-box').style.display = 'none';
+            const music = document.getElementById('piano-music');
+            music.play().catch(e => console.log("Audio play failed"));
+            document.getElementById('start-btn').style.display = 'none';
             document.getElementById('slideshow').style.display = 'block';
         }
 
-        function nextSlide() {
-            if (current < slides.length) {
-                document.getElementById('display-img').src = slides[current].img;
-                document.getElementById('display-text').innerText = slides[current].text;
-                current++;
+        function nextStep() {
+            if (currentIdx < data.length) {
+                document.getElementById('main-img').src = data[currentIdx].img;
+                document.getElementById('main-text').innerText = data[currentIdx].txt;
+                currentIdx++;
             } else {
                 document.getElementById('slideshow').style.display = 'none';
-                document.getElementById('final-section').style.display = 'block';
+                document.getElementById('final-message').style.display = 'block';
             }
         }
 
-        function blowOut() {
-            document.getElementById('cake-icon').innerHTML = "🍰";
-            document.getElementById('wish-final').style.display = 'block';
+        function blow() {
+            document.getElementById('candle').innerHTML = "🍰";
+            document.getElementById('finish-txt').style.display = 'block';
         }
     </script>
 </body>
