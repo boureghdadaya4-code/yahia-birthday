@@ -3,29 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Yahia</title>
+    <title>Birthday Yahia</title>
     <style>
-        body { margin: 0; background-color: #000; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Inter', sans-serif; }
-        #intro { text-align: center; }
-        .btn { padding: 15px 30px; font-size: 18px; border: 1px solid #fff; background: transparent; color: white; cursor: pointer; border-radius: 5px; }
-        #slider { display: none; text-align: center; width: 80%; }
-        .msg { font-size: 24px; font-weight: 200; margin-bottom: 30px; }
-        #final { display: none; width: 80%; max-width: 500px; text-align: left; }
-        .letter { font-size: 18px; line-height: 1.8; color: #ccc; white-space: pre-line; }
-        .cake { font-size: 60px; cursor: pointer; text-align: center; margin-top: 30px; }
+        /* ستايل عصري وأنيق (خلفية داكنة ونصوص بيضاء) */
+        body {
+            margin: 0; background-color: #0b0e14; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; font-family: 'Inter', -apple-system, sans-serif; color: #ffffff;
+            overflow: hidden;
+        }
+
+        #intro-screen { text-align: center; }
+        .btn-start { 
+            padding: 12px 24px; font-size: 16px; border-radius: 8px; border: 1px solid #ffffff; 
+            background: transparent; color: white; cursor: pointer; transition: 0.3s;
+        }
+        .btn-start:hover { background: white; color: black; }
+
+        /* حاوية السلايدات */
+        #slideshow { display: none; text-align: center; width: 90%; max-width: 500px; }
+        
+        .text-msg { 
+            font-size: 24px; font-weight: 300; line-height: 1.6; 
+            min-height: 100px; margin-bottom: 40px; letter-spacing: 0.5px;
+        }
+
+        /* القسم النهائي (الرسالة الكاملة) */
+        #final-section { 
+            display: none; padding: 20px; text-align: left; 
+            animation: fadeIn 2s; height: 85vh; overflow-y: auto; width: 90%; max-width: 500px; 
+        }
+        .long-message { 
+            font-size: 17px; line-height: 1.8; color: #e0e0e0; 
+            white-space: pre-line; border-left: 1px solid #ffffff44; padding-left: 20px;
+        }
+
+        .cake { font-size: 70px; text-align: center; cursor: pointer; display: block; margin: 30px 0; transition: 0.3s; }
+        .cake:hover { transform: scale(1.1); }
+
+        .next-arrow { font-size: 30px; cursor: pointer; opacity: 0.6; transition: 0.3s; }
+        .next-arrow:hover { opacity: 1; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="intro"><button class="btn" onclick="start()">Click for Yahia ✨</button></div>
-
-    <div id="slider">
-        <div id="txt" class="msg"></div>
-        <button class="btn" onclick="next()">Next</button>
+    <div id="intro-screen">
+        <button class="btn-start" onclick="startSurprise()">A special message for Yahia... ✨</button>
     </div>
 
-    <div id="final">
-        <div class="letter">
+    <div id="slideshow">
+        <div id="display-text" class="text-msg"></div>
+        <div class="next-arrow" onclick="nextSlide()">→</div>
+    </div>
+
+    <div id="final-section">
+        <div class="long-message">
 Happy Birthday Yahia 🎉
 
 On your special day, I just want to wish you a very happy birthday and a beautiful year ahead. I truly hope this new year of your life brings you happiness, success, good health, and everything you dream about.
@@ -36,26 +70,49 @@ I wish you only the best in life, and I hope all your wishes come true. May your
 
 Enjoy your day and never forget that you are loved and appreciated. Happy Birthday again! 🎂✨
         </div>
-        <div class="cake" onclick="this.innerHTML='🍰'">🕯️</div>
+        
+        <div class="cake" id="cake-icon" onclick="blowOut()">🕯️</div>
+        <p id="wish-final" style="display:none; text-align:center; font-weight:bold; color: #ffffff; font-size: 18px;">✨ Your wish will come true! ✨</p>
     </div>
 
-    <audio id="music" loop>
+    <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_feb6359049.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        let step = 0;
-        const msgs = ["Hi Yahia...", "There's something I want to say...", "Read this carefully."];
-        function start() {
-            document.getElementById('music').play();
-            document.getElementById('intro').style.display = 'none';
-            document.getElementById('slider').style.display = 'block';
-            document.getElementById('txt').innerText = msgs[0];
+        let current = 0;
+        const slides = [
+            "Hi Yahia...",
+            "Today is more than just a date on the calendar.",
+            "It's a celebration of you.",
+            "I wanted to tell you something..."
+        ];
+
+        function startSurprise() {
+            var audio = document.getElementById('bg-music');
+            audio.play().catch(e => console.log("Audio play failed"));
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('slideshow').style.display = 'block';
+            updateText();
         }
-        function next() {
-            step++;
-            if(step < msgs.length) { document.getElementById('txt').innerText = msgs[step]; }
-            else { document.getElementById('slider').style.display = 'none'; document.getElementById('final').style.display = 'block'; }
+
+        function updateText() {
+            document.getElementById('display-text').innerText = slides[current];
+        }
+
+        function nextSlide() {
+            if (current < slides.length - 1) {
+                current++;
+                updateText();
+            } else {
+                document.getElementById('slideshow').style.display = 'none';
+                document.getElementById('final-section').style.display = 'block';
+            }
+        }
+
+        function blowOut() {
+            document.getElementById('cake-icon').innerHTML = "🍰";
+            document.getElementById('wish-final').style.display = 'block';
         }
     </script>
 </body>
